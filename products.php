@@ -2,7 +2,7 @@
 require("config.php");
 require("functions.php");
 require("header.php");
-$prodcatsql = "SELECT * FROM products WHERE cat_id = " . $_GET['id'] . ";";
+$prodcatsql = "SELECT * FROM product WHERE cat_id = " . $_GET['id'] . ";";
 $prodcatres = $mysqli->query($prodcatsql);
 $numrows = mysqli_num_rows($prodcatres);
 if($numrows == 0)
@@ -25,8 +25,8 @@ echo "<td><img src='./productimages/" . $prodrow['image']. "' alt='". $prodrow['
 }
 echo "<td>";
 echo "<h2>" . $prodrow['name'] . "</h2>";
-echo "<p>" . $prodrow['description'];
-echo "<p><strong>Precio: &dollar;". sprintf('%.', $prodrow['price']) . "</strong>";
+echo "<p>" . $prodrow['desc'];
+echo "<p><strong>Precio: &dollar;". sprintf('%.2f', $prodrow['price']) . "</strong>";
 echo "<p>[<a href='addtobasket.php?id=". $prodrow['id'] . "'>Comprar</a>]";
 echo "</td>";
 echo "</tr>";
