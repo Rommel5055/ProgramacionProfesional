@@ -7,10 +7,19 @@ class usuario{
 	public $mail;//email
 	public $address; //direccion
 	public function connect(){//conectar base de datos
-		$this->conn = mysqli_connect("localhost","root","","project");
-		if(mysqli_connect_errno()){
+            if(isset($_SESSION['SESS_CHANGEID']) == TRUE)
+{
+session_unset();
+session_regenerate_id();
+}
+require("config.php");
+		$this->conn = $mysqli;
+		if(!$this->conn){
 			echo "Error :". mysqli_connect_error();
 		}
+                else{
+                    echo "Connected\n";
+                }
 	}
 	public function Create_User(){
 		$this->connect();
@@ -50,6 +59,7 @@ class usuario{
 	}
 	public function sessionstarter(){
 		session_start();
+                echo $_SESSION[id];
 		$this->connect();
 		$stmt = $this->conn->prepare("SELECT id, username, company_id FROM user WHERE id=?");
 		$stmt->bind_param($_SESSION[id]);

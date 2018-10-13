@@ -20,7 +20,7 @@ require("config.php");
 </div>
 <div id="menu">
 <a href="<?php echo $config_basedir; ?>">Pagina Principal</a> -
-<a href="<?php echo $config_basedir;?>showcart.php">Ver Carro</a>
+<a href="<?php echo $config_basedir;?>mycart.php">Ver Carro</a>
 </div>
 <div id="container">
 <div id="bar">

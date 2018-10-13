@@ -1,27 +1,29 @@
 <?php
-session_start();
+//session_start();
 
-$con = mysqli_connect("localhost","root","","mydb");
-
-if(mysqli_connect_errno())
+if(isset($_SESSION['SESS_CHANGEID']) == TRUE)
 {
-	echo "Error :". mysqli_connect_error();
+session_unset();
+session_regenerate_id();
 }
-
+require("config.php");
+require("functions.php");
 include 'class.php';
 $a = new usuario();
-$a->sessionstarter();
+$a->connect();
+//$a->sessionstarter();
 
-$stmt = $a->conn->prepare("SELECT p.name AS name, 
+$result = mysqli_query($a->conn,"SELECT p.name AS name, 
 		p.desc AS img,
 		sp.quantity AS quantity,
 		sp.a_price AS price
 		FROM shopping_cart AS sc,
 		INNER JOIN shopped_product AS sp ON (sp.shopping_cart_id = sc.id)
 		INNER JOIN product AS p ON (sp.product_id = p.id)
-		WHERE sc.user_id = ?");
-$stmt->bind_param($_SESSION[id]);
-$result = $stmt->execute();
+		");
+//$stmt->bind_param();
+//$stmt->close();
+//$result = $stmt->execute();
 
 if ($result == FALSE || $result == ""){
 	echo "Ud no tiene elementos en el carrito de compras";
